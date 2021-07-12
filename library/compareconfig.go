@@ -1,8 +1,12 @@
 package library
 
 import (
+	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 
+	"github.com/gogf/gf/frame/g"
 	"github.com/spf13/viper"
 )
 
@@ -29,4 +33,17 @@ func ReadConfig(path string) map[string]interface{} {
 		}
 	}
 	return v.AllSettings()
+}
+
+//CompareConfig is Copare path location all config and point out difference
+func CompareConfig(root string) g.Map {
+	datalist := g.Map{}
+	filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		//path 包含檔名
+
+		datalist[info.Name()] = ReadConfig(path)
+		fmt.Printf("%v/n", datalist[info.Name()])
+		return nil
+	})
+	return datalist
 }
