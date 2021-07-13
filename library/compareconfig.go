@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/gogf/gf/frame/g"
 	"github.com/spf13/viper"
 )
 
@@ -36,14 +35,49 @@ func ReadConfig(path string) map[string]interface{} {
 }
 
 //CompareConfig is Copare path location all config and point out difference
-func CompareConfig(root string) g.Map {
-	datalist := g.Map{}
+func CompareConfig(root string) (map[string]map[string]interface{}, map[string]bool) {
+	datalist := make(map[string]map[string]interface{})
+	count := 0
 	filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
 		//path 包含檔名
-
+		count++
 		datalist[info.Name()] = ReadConfig(path)
 		fmt.Printf("%v/n", datalist[info.Name()])
 		return nil
 	})
-	return datalist
+	configMap := make(map[string]map[string]interface{})
+	temp := make(map[string]interface{})
+
+	//get all config into mapmap
+	for configName, c := range datalist {
+		for iName, iValue := range c {
+			temp[configName] = iValue
+			if _, ok := configMap[iName]; !ok {
+				configMap[iName] = temp
+			} else {
+				configMap[iName][configName] = iValue
+			}
+		}
+
+	}
+
+	//dig out difference
+	difName := map[string]bool{}
+	for iName, c := range configMap {
+		temp := ""
+		for _, value := range c {
+			if temp == "" {
+				temp = value.(string)
+				continue
+			}
+			if value != temp {
+				difName[iName] = true
+			}
+		}
+		if len(c) != count {
+			difName[iName] = true
+		}
+	}
+
+	return configMap, difName
 }

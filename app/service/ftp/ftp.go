@@ -43,7 +43,7 @@ func ConnnectFTP(url, port, user, pwd string) *goftp.FTP {
 //GetFromFTP is for getting data from ftp remote
 func GetFromFTP(c *goftp.FTP, remotepath, localpath string) error {
 	file, err := os.OpenFile(localpath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
-	defer file.Close()
+
 	if err != nil {
 		log.Fatal(err)
 		return err
@@ -52,6 +52,7 @@ func GetFromFTP(c *goftp.FTP, remotepath, localpath string) error {
 	path, err := c.Pwd()
 	if err != nil {
 		log.Fatal(err)
+		file.Close()
 		return err
 
 	}
@@ -61,6 +62,8 @@ func GetFromFTP(c *goftp.FTP, remotepath, localpath string) error {
 		wr, err := io.Copy(file, r)
 		if err != nil {
 			log.Fatal(err)
+			file.Close()
+
 			return err
 		}
 		fmt.Println("check copy ok : ", wr)
@@ -68,6 +71,6 @@ func GetFromFTP(c *goftp.FTP, remotepath, localpath string) error {
 		return nil
 	})
 
-	return nil
+	return file.Close()
 
 }
