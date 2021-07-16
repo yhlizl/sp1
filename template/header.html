@@ -1,0 +1,48 @@
+${{define "header"}}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <a class="navbar-brand" href="#">SP1</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label=" Toggle navigation ">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarColor01 ">
+        <ul class="navbar-nav mr-auto ">
+            <li class="nav-item ">
+                <a class="nav-link ${{if eq .action "Index"}} active ${{end}} " href="/sp1/index "> Home </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link ${{if eq .action "Chart"}} active ${{end}} " href="/sp1/index "> Chart </a>
+            </li>
+
+
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle ${{if eq .action "healthy"}} active ${{end}}" href="#" id="healthyDrop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Healthy
+        </a>
+        <div class="dropdown-menu" aria-labelledby="healthyDrop">
+          <a class="dropdown-item" href="/sp1/healthy/configcompare">Config Compare</a>
+          <a class="dropdown-item" href="/sp1/healthy/configedit">Config Edit</a>
+         <!-- <div class="dropdown-divider"></div> 
+        分隔線-->
+        </div>
+      </li>
+
+
+
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle ${{if eq .action "healthy"}} active ${{end}}" href="#" id="settingDrop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Setting
+        </a>
+        <div class="dropdown-menu" aria-labelledby="settingDrop">
+          <a class="dropdown-item" href="/sp1/healthy/configcompare">Config Setting</a>
+         <!-- <div class="dropdown-divider"></div> 
+        分隔線-->
+        </div>
+      </li>
+        </ul>
+    </div>
+
+</nav>
+
+
+${{end}}

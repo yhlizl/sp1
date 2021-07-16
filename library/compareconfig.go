@@ -34,7 +34,7 @@ func ReadConfig(path string) map[string]interface{} {
 	return v.AllSettings()
 }
 
-//CompareConfig is Copare path location all config and point out difference
+//CompareConfig is Copare path location all config and point out difference,return map data and diff map, map[params][tools]=value
 func CompareConfig(root string) (map[string]map[string]interface{}, map[string]bool) {
 	datalist := make(map[string]map[string]interface{})
 	count := 0

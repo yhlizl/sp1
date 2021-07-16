@@ -1,12 +1,17 @@
 package ftp
 
 import (
+	"bytes"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"log"
 	"os"
+	"path"
+	"strings"
+	"time"
 
-	"github.com/dutchcoders/goftp"
+	"github.com/jlaffaye/ftp"
+	goftp "github.com/jlaffaye/ftp"
 )
 
 // turn on ftp
@@ -17,12 +22,12 @@ import (
 // netstat -atp TCP | grep ftp
 
 //ConnnectFTP is connect to ftp connection
-func ConnnectFTP(url, port, user, pwd string) *goftp.FTP {
+func ConnnectFTP(url, port, user, pwd string) *goftp.ServerConn {
 	// fmt.Println("connect start!")
 
-	c, err := goftp.Connect(url + ":" + port)
-	// connConfig is the address configuration, a string of ip: port, such as: localhost:2121
+	fmt.Println("start to ftp connection : ", url+":"+port, user)
 
+	c, err := ftp.Dial(url+":"+port, goftp.DialWithTimeout(120*time.Second))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -31,6 +36,7 @@ func ConnnectFTP(url, port, user, pwd string) *goftp.FTP {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	// fmt.Println("connect success!")
 	return c
 	// // Do something with the FTP conn
@@ -41,36 +47,36 @@ func ConnnectFTP(url, port, user, pwd string) *goftp.FTP {
 }
 
 //GetFromFTP is for getting data from ftp remote
-func GetFromFTP(c *goftp.FTP, remotepath, localpath string) error {
-	file, err := os.OpenFile(localpath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
+func GetFromFTP(c *goftp.ServerConn, remotepath, localpath, filename, newname string) {
+	fmt.Println("start to check ftp file : ", remotepath, localpath, filename, newname)
 
-	if err != nil {
-		log.Fatal(err)
-		return err
-
-	}
-	path, err := c.Pwd()
-	if err != nil {
-		log.Fatal(err)
-		file.Close()
-		return err
-
-	}
-	log.Println("now location:", path)
-	c.Retr(remotepath, func(r io.Reader) error {
-
-		wr, err := io.Copy(file, r)
-		if err != nil {
-			log.Fatal(err)
-			file.Close()
-
-			return err
+	walker := c.Walk(remotepath)
+	for walker.Next() {
+		entry := walker.Stat()
+		dir := walker.Path()
+		dirlist := strings.Split(dir, "/")
+		subname := dirlist[len(dirlist)-2]
+		if entry.Name != filename {
+			continue
 		}
-		fmt.Println("check copy ok : ", wr)
+		res, err := c.Retr(dir)
+		if err != nil {
+			log.Println(err)
+		}
+		rbuf, err := ioutil.ReadAll(res)
+		if err != nil {
+			log.Println(err)
+		}
+		newfilename := path.Join(localpath, newname+"_"+subname+"_"+filename)
+		file, err := os.OpenFile(newfilename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
+		if err != nil {
+			log.Println(err)
+		}
+		wbuf := new(bytes.Buffer)
+		wbuf.Write(rbuf)
+		wbuf.WriteTo(file)
 
-		return nil
-	})
-
-	return file.Close()
+		defer res.Close()
+	}
 
 }

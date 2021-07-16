@@ -1,0 +1,28 @@
+ * {
+     margin: 5px;
+ }
+ 
+ .flex-container {
+     display: inline-flex;
+     flex-direction: row;
+     align-content: center;
+     justify-content: center;
+     vertical-align: middle;
+ }
+ 
+ label {
+     text-align: center;
+     vertical-align: middle;
+ }
+ 
+ .flex-container div {
+     display: inline-flex;
+     flex-direction: row;
+     height: 30;
+     width: 200px;
+ }
+ 
+ .phase {
+     width: 80px;
+     height: 100%;
+ }

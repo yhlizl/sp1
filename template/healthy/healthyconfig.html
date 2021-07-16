@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Config Check</title>
+    ${{template "common".}}
+    <link href="./healthy/healthyconfig.css" rel="stylesheet"/>
+
+</head> ${{template "header".}}
+
+<body>
+    <div class="container-fluid  flex-container rounded-5 border border-primary">
+        <form class="flex-container">
+        
+            <div class="container-fluid  flex-container">
+            FAB:
+            </div>
+            <div class="container-fluid  flex-container">
+           <select multiple class=" " id="fab ">
+            <option value ="F18A">F18A</option>
+            <option value="F18B">F18B</option>
+            
+          </select>
+            </div>
+              <div class="container-fluid  flex-container">
+            PHASE:
+            </div>
+            <div class="container-fluid  flex-container">
+           <select multiple class="phase" id="phase">
+            <option value ="P1">P1</option>
+            <option value="P2">P2</option>
+            <option value="P3">P3</option>
+            <option value="P4">P4</option>
+            <option value="P5">P5</option>
+            <option value="P6">P6</option>
+            <option value="P7">P7</option>
+            <option value="P8">P8</option>
+            
+            
+          </select>
+            </div>
+            <div>
+
+                <button type="submit " class="btn btn-primary mb-2 col ">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div>
+    <table class="table table-hove" >
+        <thead class="thead-dark" id="thead">
+        <tr>
+
+            <th scope="col">
+                #
+            </th>
+            <th scope="col">
+                是否不同？
+            </th>
+            <th scope="col">
+                Parameters
+            </th>
+         </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    </div>
+    ${{template "footer".}}
+
+</body>
+
+</html>

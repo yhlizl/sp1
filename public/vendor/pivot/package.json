@@ -1,0 +1,59 @@
+{
+  "_from": "pivot",
+  "_id": "pivot@0.1.0",
+  "_inBundle": false,
+  "_integrity": "sha1-cuUp2ZwuV0GOyYDA4XuT3AtUmaA=",
+  "_location": "/pivot",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "pivot",
+    "name": "pivot",
+    "escapedName": "pivot",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/pivot/-/pivot-0.1.0.tgz",
+  "_shasum": "72e529d99c2e57418ec980c0e17b93dc0b5499a0",
+  "_spec": "pivot",
+  "_where": "/Users/royale/go/src/sp1",
+  "author": {
+    "name": "Cameron Bytheway"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "batch": "~0.3.2",
+    "debug": "~0.7.2",
+    "each-component": "https://github.com/CamShaft/each/archive/master.tar.gz",
+    "find": "https://github.com/component/find/archive/master.tar.gz",
+    "require-component": "~0.1.0"
+  },
+  "deprecated": false,
+  "description": "Simple feature, multi-variant and A/B testing",
+  "devDependencies": {
+    "express": "~3.1.0",
+    "mocha": "~1.8.1",
+    "should": "~1.2.2",
+    "supertest": "~0.5.1"
+  },
+  "keywords": [
+    "testing",
+    "AB",
+    "multivariant",
+    "multi-variant",
+    "feature"
+  ],
+  "license": "MIT",
+  "main": "./lib/pivot",
+  "name": "pivot",
+  "scripts": {
+    "test": "NODE_ENV=test mocha"
+  },
+  "version": "0.1.0"
+}

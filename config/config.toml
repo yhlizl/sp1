@@ -1,6 +1,6 @@
 # HTTP Server
 [server]
-	Address     = ":8199"
+	Address     = ":1111"
 	ServerRoot  = "public"
 	ServerAgent = "gf-app"
 	LogPath     = "/tmp/log/gf-app/server"
@@ -15,14 +15,31 @@
 [viewer]
     Path        = "template"
     DefaultFile = "index.html"
-    Delimiters  =  ["{{", "}}"]
+    Delimiters  =  ["${{", "}}"]
 
 # Database.
 [database]
-    link  = "mysql:root:12345678@tcp(127.0.0.1:3306)/test"
+    link  = "mysql:root:hans5943@tcp(127.0.0.1:3306)/test"
     debug = true
     # Database logger.
     [database.logger]
         Path   = "/tmp/log/gf-app/sql"
         Level  = "all"
         Stdout = true
+[ftp]
+    [ftp.sp1]
+    url="192.168.1.105"
+    port="23"
+    user="Royale"
+    pwd="hanshans"
+    [ftp.sp2]
+    url="192.168.1.105"
+    port="23"
+    user="Royale"
+    pwd="hanshans"
+
+[sp1ini]
+    root="./loader"
+    filename="sp1.ini"
+[filesystem]
+    path="/Users/royale/go/src/sp1/filesystem/"
