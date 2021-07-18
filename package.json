@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/yhlizl/sp1#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "bootstrap3": "^3.3.5",
     "bootstrap4": "0.0.1-security",

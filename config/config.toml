@@ -19,20 +19,38 @@
 
 # Database.
 [database]
-    link  = "mysql:root:hans5943@tcp(127.0.0.1:3306)/test"
+    [database.default]
+    link  = "mysql:root:hans5943@tcp(127.0.0.1:3306)/sp1"
     debug = true
+ 
+    [database.mq]
+    link = "mysql:root:hans5943@tcp(127.0.0.1:3306)/mq"
+
+    debug = true
+
     # Database logger.
     [database.logger]
         Path   = "/tmp/log/gf-app/sql"
         Level  = "all"
         Stdout = true
 [ftp]
-    [ftp.sp1]
+    [[ftp.F18A]]
+    [ftp.F18A.P1]
+    name="asp1"
     url="192.168.1.105"
     port="23"
     user="Royale"
     pwd="hanshans"
-    [ftp.sp2]
+    [[ftp.F18A]]
+    [ftp.F18A.P2]
+    name="bsp2"
+    url="192.168.1.105"
+    port="23"
+    user="Royale"
+    pwd="hanshans"
+    [[ftp.F18B]]
+    [ftp.F18B.P5]
+    name="esp1"
     url="192.168.1.105"
     port="23"
     user="Royale"
@@ -41,5 +59,10 @@
 [sp1ini]
     root="./loader"
     filename="sp1.ini"
+    configpath="/Users/royale/go/src/sp1/config/sp1/"
+
 [filesystem]
     path="/Users/royale/go/src/sp1/filesystem/"
+[mq]
+#setiing time out min
+    timeout="10"

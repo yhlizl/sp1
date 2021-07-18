@@ -5,18 +5,23 @@ import (
 	"testing"
 )
 
-func TestCompareini(t *testing.T) {
+func Test_downloadConfig(t *testing.T) {
+	type args struct {
+		fab   []string
+		phase []string
+	}
 	tests := []struct {
 		name string
-		want map[string]map[string]map[string]string
+		args args
+		want []string
 	}{
 		// TODO: Add test cases.
-		{"", nil},
+		{"", args{[]string{"F18A", "F18B"}, []string{"P1", "P5"}}, []string{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Compareini(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Compareini() = %v, want %v", got, tt.want)
+			if got := downloadConfig(tt.args.fab, tt.args.phase); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("downloadConfig() = %v, want %v", got, tt.want)
 			}
 		})
 	}
